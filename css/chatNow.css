@@ -1,0 +1,34 @@
+.cn-chat-now-client{
+    border: 1px solid #ccc
+
+}
+.cn-chat-now-client .cn-chat-label{
+    display: block;
+    background: #82c0f2;
+    color:#fff;
+    border-radius: 5px 5px 0px 0px;
+    padding: 5px 10px;
+}
+.cn-chat-now-client .cn-chat-action{
+    display: none;
+}
+.cn-chat-now-client .chat-list{
+    width: 100%;
+    overflow-y: auto;
+    /*padding: 10px;*/
+    /*white-space: */
+}
+.cn-chat-now-client .chat-msg{
+    margin: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.cn-chat-now-client .chat-box-wrap{
+    border-top: 1px solid #ccc;
+    padding: 5px;
+}
+.cn-chat-now-client .chat-text-wrap{
+}
+.cn-chat-now-client .chat-box{
+    width: 100%;
+    height: 30px;
+}
