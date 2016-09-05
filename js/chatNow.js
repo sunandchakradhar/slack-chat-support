@@ -2,7 +2,7 @@ $.chatNow = function(opts){
     // opts.labelText
     //opts. width
     //opts.height
-
+    var user;
     opts = $.extend({
         apiBaseUrl: '',
         label: 'Live Support!',
@@ -15,6 +15,11 @@ $.chatNow = function(opts){
         <a href="javascript:void(0)" class="cn-chat-label"></a>\
         <div class="cn-chat-action ">\
             <div class="chat-list">\
+                <div class="cnt-chat-form">\
+                    <input type="text" class="cn-chat-name cs-chat-input" placeholder="Your Name*" /><br/>\
+                    <input type="text" class="cn-chat-email cs-chat-input" placeholder="Email*" /><br/>\
+                    <button type="button" class="cn-chat-button" >Start Chat</button>\
+                </div>\
             </div>\
             <div class="chat-box-wrap">\
                 <textarea class="chat-box"></textarea>\
@@ -32,16 +37,30 @@ $.chatNow = function(opts){
     $ac.height(opts.height-$label.height());
     $list.height(opts.height-$label.height() - 51);
 
+    $me.find(".cn-chat-button").click(function(){
+        var name = $me.find(".cn-chat-name"),
+            email= $me.find(".cn-chat-email");
+        if($.trim(name.val()) == ''){
+            return alert("Invalid name!");
+        }
+        if($.trim(email.val()) == ''){
+            return alert("Invalid name!");
+        }
+        initChat({
+            name: name.val(),
+            email: email.val()
+        });
+    });
+
     $label.click(function(){
         if(!$me.data("init")){
-            $me.data("init", true);
             initChat()
         }
         // debugger;
         // alert(opts.height+'---'+$label.height());
         // $ac.height(opts.height-$label.height())
         $ac.toggle();
-    }).trigger("click");
+    });
 
     $box.keypress(function(e) {
         if(e.which == 13) {
@@ -56,16 +75,22 @@ $.chatNow = function(opts){
         width: opts.width,
     });
 
-    function initChat(){
-        $.post(opts.apiBaseUrl+'/get-token', function(resp){
+    function initChat(params){
+        params = params || {};
+        console.log(params);
+        $.post(opts.apiBaseUrl+'/get-token', params, function(resp){
             if(resp.success){
-                userId = resp["data"]["support_user"]
+                $me.data("init", true);
+                $me.find(".cnt-chat-form").hide();
+                $me.find(".chat-box").show();
+                user = resp["data"]["support_user"]
                 loadMessages();
             }else{
                 console.log(resp);
-                alert("error");
+                // alert("error");
             }
         });
+
     }
     function addChatMessage(msg){
         // debugger;
@@ -125,8 +150,10 @@ $.chatNow = function(opts){
         });
     }
 
-
-
-
+    (function handleCrossDomain(){
+        $.get(opts.apiBaseUrl+'/',function(){
+            // do nothing.
+        })
+    })();
 
 }

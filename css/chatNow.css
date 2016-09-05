@@ -28,7 +28,15 @@
 }
 .cn-chat-now-client .chat-text-wrap{
 }
+.cn-chat-now-client .cnt-chat-form{
+    padding: 5px;
+}
+.cn-chat-now-client .cs-chat-input{
+    margin: 5px;
+    padding: 5px;
+}
 .cn-chat-now-client .chat-box{
+    display: none;
     width: 100%;
     height: 30px;
 }
